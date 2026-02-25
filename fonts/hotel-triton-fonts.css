@@ -28,16 +28,16 @@
 
 :root {
   /* Primary body */
-  --font-display: 'Filson Pro', 'Arial', 'Helvetica', sans-serif;
+  --font-display: 'Stolzl', 'Arial', 'Helvetica', sans-serif;
 
   /* Display / marketing headlines */
-  --font-alt: 'Stolzl', 'Arial', 'Helvetica', sans-serif;
+  --font-alt: 'Neulis Neue', 'Arial', 'Helvetica', sans-serif;
 
   /* Editorial / secondary */
-  --font-body: 'Articulat CF', 'Arial', 'Helvetica', sans-serif;
+  --font-body: 'Filson Pro', 'Arial', 'Helvetica', sans-serif;
 
   /* Utility / alt sans */
-  --font-secondary: 'Neulis Neue', 'Arial', 'Helvetica', sans-serif;
+  --font-secondary: 'Articulat CF', 'Arial', 'Helvetica', sans-serif;
 }
 
 /* -----------------------------------------------------------

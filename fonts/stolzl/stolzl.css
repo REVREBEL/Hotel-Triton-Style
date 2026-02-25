@@ -16,74 +16,74 @@
 
 /* Thin — 100 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url("./Stolzl-Thin.woff2") format("woff2"),
-       url("./Stolzl-Thin.woff") format("woff"),
-       url("./Stolzl-Thin.otf") format("opentype");
+  src: url("./stolzl-thin.woff2") format("woff2"),
+       url("./stolzl-thin.woff") format("woff"),
+       url("./stolzl-thin.otf") format("opentype");
 }
 
 /* Light — 300 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("./Stolzl-Light.woff2") format("woff2"),
-       url("./Stolzl-Light.woff") format("woff"),
-       url("./Stolzl-Light.otf") format("opentype");
+  src: url("./stolzl-light.woff2") format("woff2"),
+       url("./stolzl-light.woff") format("woff"),
+       url("./stolzl-light.otf") format("opentype");
 }
 
 /* Regular — 400 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("./Stolzl-Regular.woff2") format("woff2"),
-       url("./Stolzl-Regular.woff") format("woff"),
-       url("./Stolzl-Regular.otf") format("opentype");
+  src: url("./stolzl-regular.woff2") format("woff2"),
+       url("./stolzl-regular.woff") format("woff"),
+       url("./stolzl-regular.otf") format("opentype");
 }
 
 /* Book — 450 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 450;
   font-display: swap;
-  src: url("./Stolzl-Book.woff2") format("woff2"),
-       url("./Stolzl-Book.woff") format("woff"),
-       url("./Stolzl-Book.otf") format("opentype");
+  src: url("./stolzl-book.woff2") format("woff2"),
+       url("./stolzl-book.woff") format("woff"),
+       url("./stolzl-book.otf") format("opentype");
 }
 
 /* Medium — 500 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("./Stolzl-Medium.woff2") format("woff2"),
-       url("./Stolzl-Medium.woff") format("woff"),
-       url("./Stolzl-Medium.otf") format("opentype");
+  src: url("./stolzl-medium.woff2") format("woff2"),
+       url("./stolzl-medium.woff") format("woff"),
+       url("./stolzl-medium.otf") format("opentype");
 }
 
 /* Bold — 700 */
 @font-face {
-  font-family: "Stolzl";
+  font-family: Stolzl;
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("./Stolzl-Bold.woff2") format("woff2"),
-       url("./Stolzl-Bold.woff") format("woff"),
-       url("./Stolzl-Bold.otf") format("opentype");
+  src: url("./stolzl-bold.woff2") format("woff2"),
+       url("./stolzl-bold.woff") format("woff"),
+       url("./stolzl-bold.otf") format("opentype");
 }
 
 /* Optional helpers */
-.stolzl-100 { font-family: "Stolzl", Arial, sans-serif; font-weight: 100; }
-.stolzl-300 { font-family: "Stolzl", Arial, sans-serif; font-weight: 300; }
-.stolzl-400 { font-family: "Stolzl", Arial, sans-serif; font-weight: 400; }
-.stolzl-450 { font-family: "Stolzl", Arial, sans-serif; font-weight: 450; }
-.stolzl-500 { font-family: "Stolzl", Arial, sans-serif; font-weight: 500; }
-.stolzl-700 { font-family: "Stolzl", Arial, sans-serif; font-weight: 700; }
+.stolzl-100 { font-family: Stolzl, Arial, sans-serif; font-weight: 100; }
+.stolzl-300 { font-family: Stolzl, Arial, sans-serif; font-weight: 300; }
+.stolzl-400 { font-family: Stolzl, Arial, sans-serif; font-weight: 400; }
+.stolzl-450 { font-family: Stolzl, Arial, sans-serif; font-weight: 450; }
+.stolzl-500 { font-family: Stolzl, Arial, sans-serif; font-weight: 500; }
+.stolzl-700 { font-family: Stolzl, Arial, sans-serif; font-weight: 700; }
