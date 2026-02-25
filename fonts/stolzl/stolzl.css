@@ -1,0 +1,89 @@
+/**
+ * HOTEL TRITON | Stolzl (Static)
+ * Intended to live in: /fonts/stolzl/
+ * Serve via jsDelivr or GitHub Pages.
+ *
+ * Example:
+ * <link rel="stylesheet"
+ *  href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/stolzl/stolzl.css">
+ */
+
+/* -----------------------------------------------------------
+   License / provenance
+   Font Family: Stolzl
+   Add license details here
+----------------------------------------------------------- */
+
+/* Thin — 100 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./Stolzl-Thin.woff2") format("woff2"),
+       url("./Stolzl-Thin.woff") format("woff"),
+       url("./Stolzl-Thin.otf") format("opentype");
+}
+
+/* Light — 300 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./Stolzl-Light.woff2") format("woff2"),
+       url("./Stolzl-Light.woff") format("woff"),
+       url("./Stolzl-Light.otf") format("opentype");
+}
+
+/* Regular — 400 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./Stolzl-Regular.woff2") format("woff2"),
+       url("./Stolzl-Regular.woff") format("woff"),
+       url("./Stolzl-Regular.otf") format("opentype");
+}
+
+/* Book — 450 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 450;
+  font-display: swap;
+  src: url("./Stolzl-Book.woff2") format("woff2"),
+       url("./Stolzl-Book.woff") format("woff"),
+       url("./Stolzl-Book.otf") format("opentype");
+}
+
+/* Medium — 500 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./Stolzl-Medium.woff2") format("woff2"),
+       url("./Stolzl-Medium.woff") format("woff"),
+       url("./Stolzl-Medium.otf") format("opentype");
+}
+
+/* Bold — 700 */
+@font-face {
+  font-family: "Stolzl";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./Stolzl-Bold.woff2") format("woff2"),
+       url("./Stolzl-Bold.woff") format("woff"),
+       url("./Stolzl-Bold.otf") format("opentype");
+}
+
+/* Optional helpers */
+.stolzl-100 { font-family: "Stolzl", Arial, sans-serif; font-weight: 100; }
+.stolzl-300 { font-family: "Stolzl", Arial, sans-serif; font-weight: 300; }
+.stolzl-400 { font-family: "Stolzl", Arial, sans-serif; font-weight: 400; }
+.stolzl-450 { font-family: "Stolzl", Arial, sans-serif; font-weight: 450; }
+.stolzl-500 { font-family: "Stolzl", Arial, sans-serif; font-weight: 500; }
+.stolzl-700 { font-family: "Stolzl", Arial, sans-serif; font-weight: 700; }
