@@ -1,0 +1,62 @@
+/**
+ * HOTEL TRITON | Master Font Bundle (static)
+ * Includes:
+ *  - Articulat CF
+ *  - Filson Pro
+ *  - Neulis Neue
+ *
+ * Intended to live in: /fonts/
+ *
+ * Recommended HTML (jsDelivr):
+ * <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+ * <link rel="preload" as="style"
+ *   href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/hotel-triton-fonts.css"
+ *   type="text/css">
+ * <link rel="stylesheet"
+ *   href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/hotel-triton-fonts.css">
+ *
+ * OR
+ *
+ * <style>
+ *   @import url("https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/hotel-triton-fonts.css");
+ * </style>
+ */
+
+/* -----------------------------------------------------------
+   Font Family Imports
+----------------------------------------------------------- */
+
+@import url("./articulat-cf/articulat-cf.css");
+@import url("./filson-pro/filson-pro.css");
+@import url("./neulis-neue/neulis-neue.css");
+
+/* -----------------------------------------------------------
+   Optional Brand Tokens
+----------------------------------------------------------- */
+
+:root {
+  /* Primary brand body */
+  --font-body: "Articulat CF", Arial, Helvetica, sans-serif;
+
+  /* Headlines / display */
+  --font-display: "Filson Pro", Arial, Helvetica, sans-serif;
+
+  /* Secondary / editorial */
+  --font-secondary: "Neulis Neue", Arial, Helvetica, sans-serif;
+}
+
+/* -----------------------------------------------------------
+   Convenience Helpers
+----------------------------------------------------------- */
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
+}

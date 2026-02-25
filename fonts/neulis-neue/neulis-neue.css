@@ -1,0 +1,166 @@
+/**
+ * REVREBEL | Neulis Neue (Static)
+ * Intended to live in: /fonts/neulis-neue/
+ * Serve via jsDelivr or GitHub Pages.
+ *
+ * Recommended HTML (jsDelivr):
+ * <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+ * <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/neulis-neue/neulis-neue.css" type="text/css">
+ * <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/neulis-neue/neulis-neue.css">
+ *
+ * Optional font preloads (pick only the weights you actually use):
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/neulis-neue/neulis-neue-regular.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/neulis-neue/neulis-neue-semi-bold.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/neulis-neue/neulis-neue-bold.woff2" type="font/woff2" crossorigin>
+ */
+
+/* -----------------------------------------------------------
+   License / provenance
+   Font Family: Neulis Neue
+   NOTE: Add license/provenance details here
+   ----------------------------------------------------------- */
+
+/* Hairline — 100 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./neulis-neue-hairline.woff2") format("woff2"),
+       url("./neulis-neue-hairline.woff") format("woff"),
+       url("./neulis-neue-hairline.otf") format("opentype");
+}
+
+/* Thin — 200 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./neulis-neue-thin.woff2") format("woff2"),
+       url("./neulis-neue-thin.woff") format("woff"),
+       url("./neulis-neue-thin.otf") format("opentype");
+}
+
+/* Extra Light — 300 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./neulis-neue-extra-light.woff2") format("woff2"),
+       url("./neulis-neue-extra-light.woff") format("woff"),
+       url("./neulis-neue-extra-light.otf") format("opentype");
+}
+
+/* Light — 400 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./neulis-neue-light.woff2") format("woff2"),
+       url("./neulis-neue-light.woff") format("woff"),
+       url("./neulis-neue-light.otf") format("opentype");
+}
+
+/* Regular — 450 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 450;
+  font-display: swap;
+  src: url("./neulis-neue-regular.woff2") format("woff2"),
+       url("./neulis-neue-regular.woff") format("woff"),
+       url("./neulis-neue-regular.otf") format("opentype");
+}
+
+/* Regular Italic — 450 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: italic;
+  font-weight: 450;
+  font-display: swap;
+  src: url("./neulis-neue-italic.woff2") format("woff2"),
+       url("./neulis-neue-italic.woff") format("woff"),
+       url("./neulis-neue-italic.otf") format("opentype");
+}
+
+/* Semi Bold — 600 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./neulis-neue-semi-bold.woff2") format("woff2"),
+       url("./neulis-neue-semi-bold.woff") format("woff"),
+       url("./neulis-neue-semi-bold.otf") format("opentype");
+}
+
+/* Semi Bold Italic — 600 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./neulis-neue-semi-bold-italic.woff2") format("woff2"),
+       url("./neulis-neue-semi-bold-italic.woff") format("woff"),
+       url("./neulis-neue-semi-bold-italic.otf") format("opentype");
+}
+
+/* Bold — 700 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./neulis-neue-bold.woff2") format("woff2"),
+       url("./neulis-neue-bold.woff") format("woff"),
+       url("./neulis-neue-bold.otf") format("opentype");
+}
+
+/* Bold Italic — 700 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./neulis-neue-bold-italic.woff2") format("woff2"),
+       url("./neulis-neue-bold-italic.woff") format("woff"),
+       url("./neulis-neue-bold-italic.otf") format("opentype");
+}
+
+/* Black — 900 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./neulis-neue-black.woff2") format("woff2"),
+       url("./neulis-neue-black.woff") format("woff"),
+       url("./neulis-neue-black.otf") format("opentype");
+}
+
+/* Black Italic — 900 */
+@font-face {
+  font-family: "Neulis Neue";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./neulis-neue-black-italic.woff2") format("woff2"),
+       url("./neulis-neue-black-italic.woff") format("woff"),
+       url("./neulis-neue-black-italic.otf") format("opentype");
+}
+
+/* -----------------------------------------------------------
+   Optional utility helpers
+   ----------------------------------------------------------- */
+
+.neulis-100 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 100; }
+.neulis-200 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 200; }
+.neulis-300 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 300; }
+.neulis-400 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 400; }
+.neulis-450 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 450; }
+.neulis-600 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 600; }
+.neulis-700 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 700; }
+.neulis-900 { font-family: "Neulis Neue", Arial, Helvetica, sans-serif; font-weight: 900; }

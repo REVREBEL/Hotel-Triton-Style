@@ -1,0 +1,135 @@
+/**
+ * REVREBEL | Filson Pro (Static)
+ * Intended to live in: /fonts/filson-pro/
+ * Serve via jsDelivr or GitHub Pages.
+ *
+ * Recommended HTML (jsDelivr):
+ * <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+ * <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/filson-pro/filson-pro.css" type="text/css">
+ * <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/filson-pro/filson-pro.css">
+ *
+ * Optional font preloads (pick only the weights you actually use):
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/filson-pro/filson-pro-regular.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/filson-pro/filson-pro-medium.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/filson-pro/filson-pro-bold.woff2" type="font/woff2" crossorigin>
+ */
+
+/* -----------------------------------------------------------
+   License / provenance
+   Font Family: Filson Pro
+   NOTE: Add license/provenance details here (foundry/designer/URL)
+   ----------------------------------------------------------- */
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./filson-pro-thin.woff2") format("woff2"),
+       url("./filson-pro-thin.woff") format("woff"),
+       url("./filson-pro-thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./filson-pro-light.woff2") format("woff2"),
+       url("./filson-pro-light.woff") format("woff"),
+       url("./filson-pro-light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./filson-pro-light-italic.woff2") format("woff2"),
+       url("./filson-pro-light-italic.woff") format("woff"),
+       url("./filson-pro-light-italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./filson-pro-regular.woff2") format("woff2"),
+       url("./filson-pro-regular.woff") format("woff"),
+       url("./filson-pro-regular.otf") format("opentype");
+}
+
+/* Book weight usually maps nicely to 450 */
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 450;
+  font-display: swap;
+  src: url("./filson-pro-book.woff2") format("woff2"),
+       url("./filson-pro-book.woff") format("woff"),
+       url("./filson-pro-book.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./filson-pro-medium.woff2") format("woff2"),
+       url("./filson-pro-medium.woff") format("woff"),
+       url("./filson-pro-medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./filson-pro-bold.woff2") format("woff2"),
+       url("./filson-pro-bold.woff") format("woff"),
+       url("./filson-pro-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./filson-pro-black.woff2") format("woff2"),
+       url("./filson-pro-black.woff") format("woff"),
+       url("./filson-pro-black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./filson-pro-heavy.woff2") format("woff2"),
+       url("./filson-pro-heavy.woff") format("woff"),
+       url("./filson-pro-heavy.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Filson Pro";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./filson-pro-heavy-italic.woff2") format("woff2"),
+       url("./filson-pro-heavy-italic.woff") format("woff"),
+       url("./filson-pro-heavy-italic.otf") format("opentype");
+}
+
+/* -----------------------------------------------------------
+   Optional utility helpers
+   ----------------------------------------------------------- */
+
+.filson-100 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 100; }
+.filson-300 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 300; }
+.filson-400 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 400; }
+.filson-450 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 450; }
+.filson-500 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 500; }
+.filson-700 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 700; }
+.filson-800 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 800; }
+.filson-900 { font-family: "Filson Pro", Arial, Helvetica, sans-serif; font-weight: 900; }

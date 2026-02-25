@@ -1,0 +1,134 @@
+/**
+ * REVREBEL | Articulat CF (Static)
+ * Intended to live in: /fonts/articulat-cf/
+ * Serve via jsDelivr or GitHub Pages.
+ *
+ * Recommended HTML (jsDelivr):
+ * <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+ * <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/articulat-cf/articulat-cf.css" type="text/css">
+ * <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/articulat-cf/articulat-cf.css">
+ *
+ * Optional font preloads (pick only the weights you actually use):
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/articulat-cf/articulat-cf-regular.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/articulat-cf/articulat-cf-medium.woff2" type="font/woff2" crossorigin>
+ * <link rel="preload" as="font" href="https://cdn.jsdelivr.net/gh/REVREBEL/Hotel-Triton-Style@main/fonts/articulat-cf/articulat-cf-bold.woff2" type="font/woff2" crossorigin>
+ */
+
+/* -----------------------------------------------------------
+   License / provenance
+   Font Family: Articulat CF
+   NOTE: Add license/provenance details here (foundry/designer/URL)
+   ----------------------------------------------------------- */
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./articulat-cf-thin.woff2") format("woff2"),
+       url("./articulat-cf-thin.woff") format("woff"),
+       url("./articulat-cf-thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./articulat-cf-extra-light.woff2") format("woff2"),
+       url("./articulat-cf-extra-light.woff") format("woff"),
+       url("./articulat-cf-extra-light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./articulat-cf-light.woff2") format("woff2"),
+       url("./articulat-cf-light.woff") format("woff"),
+       url("./articulat-cf-light.otf") format("opentype");
+}
+
+/* You have both "regular" and "normal" files.
+   Standard practice: map both to 400 so either filename works if referenced elsewhere. */
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./articulat-cf-regular.woff2") format("woff2"),
+       url("./articulat-cf-regular.woff") format("woff"),
+       url("./articulat-cf-regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./articulat-cf-normal.woff2") format("woff2"),
+       url("./articulat-cf-normal.woff") format("woff"),
+       url("./articulat-cf-normal.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./articulat-cf-medium.woff2") format("woff2"),
+       url("./articulat-cf-medium.woff") format("woff"),
+       url("./articulat-cf-medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./articulat-cf-demi-bold.woff2") format("woff2"),
+       url("./articulat-cf-demi-bold.woff") format("woff"),
+       url("./articulat-cf-demi-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./articulat-cf-bold.woff2") format("woff2"),
+       url("./articulat-cf-bold.woff") format("woff"),
+       url("./articulat-cf-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./articulat-cf-extra-bold.woff2") format("woff2"),
+       url("./articulat-cf-extra-bold.woff") format("woff"),
+       url("./articulat-cf-extra-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Articulat CF";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./articulat-cf-heavy.woff2") format("woff2"),
+       url("./articulat-cf-heavy.woff") format("woff"),
+       url("./articulat-cf-heavy.otf") format("opentype");
+}
+
+/* Optional utility helpers (keep if convenient) */
+.articulat-100 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 100; font-style: normal; }
+.articulat-200 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 200; font-style: normal; }
+.articulat-300 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 300; font-style: normal; }
+.articulat-400 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; }
+.articulat-500 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 500; font-style: normal; }
+.articulat-600 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 600; font-style: normal; }
+.articulat-700 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; }
+.articulat-800 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 800; font-style: normal; }
+.articulat-900 { font-family: "Articulat CF", Arial, Helvetica, sans-serif; font-weight: 900; font-style: normal; }
