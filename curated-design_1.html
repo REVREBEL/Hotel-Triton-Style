@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curate Your Stay | Pre-Arrival Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f1ea;
+            --vellum: rgba(255, 255, 255, 0.65);
+            --ink: #1a1a1a;
+            --accent: #5e6d5e;
+            --shadow-light: rgba(255, 255, 255, 0.8);
+            --shadow-dark: rgba(0, 0, 0, 0.08);
+            --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* The Grainy Vellum Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--grain);
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .portal-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        /* Typography & Layout */
+        h1, h2 { font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.9; }
+        .mono { font-family: 'Space Mono', monospace; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; opacity: 0.6; }
+
+        /* Vellum Montage Sheets */
+        .vellum-sheet {
+            background: var(--vellum);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                15px 15px 40px var(--shadow-dark),
+                -5px -5px 20px var(--shadow-light),
+                inset 1px 1px 2px rgba(255,255,255,0.8);
+            padding: 3rem;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: center;
+        }
+
+        .step-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+        }
+
+        .step-active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: vellumReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes vellumReveal {
+            from { opacity: 0; transform: translateY(40px) rotate(-1deg); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0) rotate(0deg); filter: blur(0px); }
+        }
+
+        /* Embossed Form Elements */
+        .embossed-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--ink);
+            padding: 1rem 0;
+            font-size: 1.5rem;
+            width: 100%;
+            outline: none;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn-curate {
+            background: var(--ink);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-curate:hover {
+            letter-spacing: 0.2em;
+            background: #333;
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 200px;
+            height: 2px;
+            background: rgba(0,0,0,0.1);
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ink);
+            width: 20%;
+            transition: width 0.8s ease;
+        }
+
+        /* Visual Selection Cards */
+        .grid-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .visual-tile {
+            aspect-ratio: 4/5;
+            background: white;
+            padding: 1rem;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .visual-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--ink);
+        }
+
+        .visual-tile.selected {
+            background: var(--ink);
+            color: white;
+        }
+
+        .visual-tile img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            filter: grayscale(100%);
+            transition: 0.4s;
+            z-index: 0;
+        }
+
+        .visual-tile:hover img { opacity: 0.4; filter: grayscale(0%); }
+        .visual-tile .label { position: relative; z-index: 1; font-weight: 700; font-size: 1.1rem; }
+        .visual-tile .desc { position: relative; z-index: 1; font-size: 0.7rem; margin-top: 0.5rem; display: none; }
+        .visual-tile:hover .desc { display: block; }
+
+        /* The Dashboard (Reward) */
+        .reward-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .dashboard-header {
+            grid-column: span 2;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .countdown-large {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 0.8;
+            margin: 1rem 0;
+            display: block;
+        }
+
+        .editorial-block {
+            border-left: 1px solid var(--ink);
+            padding-left: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .editorial-block h3 { margin-bottom: 1rem; }
+        .editorial-block p { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; }
+
+        /* Animations */
+        .fade-in { opacity: 0; animation: fadeIn 1s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="portal-container">
+        
+        <!-- STEP 2 & 3: LOOKUP & IDENTITY -->
+        <section id="step1" class="vellum-sheet step-active">
+            <div style="max-width: 600px;">
+                <p class="mono" style="margin-bottom: 1rem;">Verification</p>
+                <h1 style="font-size: 4.5rem; margin-bottom: 2rem;">Recognizing <br>Your Stay.</h1>
+                <p style="margin-bottom: 3rem; opacity: 0.7;">We’ll pull up your reservation in seconds. Use the details from your booking confirmation.</p>
+                
+                <input type="text" class="embossed-input" placeholder="Confirmation Number">
+                <input type="text" class="embossed-input" placeholder="Arrival Date (MM/DD/YYYY)">
+                
+                <div style="margin-top: 2rem;">
+                    <p class="mono" style="margin-bottom: 1rem;">Personal Continuity</p>
+                    <input type="email" class="embossed-input" placeholder="Email Address">
+                    <button class="btn-curate" onclick="nextStep(2)">Validate & Personalize</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: WHO'S JOINING -->
+        <section id="step2" class="vellum-sheet step-hidden">
+            <p class="mono" style="margin-bottom: 1rem;">Personal Discovery / Part I</p>
+            <h1 style="font-size: 4rem; margin-bottom: 2rem;">Who’s <br>Joining You?</h1>
+            
+            <div class="grid-selection">
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400" alt="Solo">
+                    <div class="label">Flying Solo</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=400" alt="Couple">
+                    <div class="label">The Other Half</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=400" alt="Family">
+                    <div class="label">Kids in Tow</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=400" alt="Group">
+                    <div class="label">Crew in Full Force</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem;">
+                <button class="btn-curate" onclick="nextStep(3)">Continue</button>
+            </div>
+        </section>
+
+        <!-- STEP 5: WHAT'S YOUR ENERGY -->
+        <section id="step3" class="vellum-sheet step-hidden" style="max-width: 100%;">
+            <p class="mono" style="margin-bottom: 1rem;">Personal Discovery / Part II</p>
+            <h1 style="font-size: 4rem; margin-bottom: 1rem;">What’s <br>Your Energy?</h1>
+            <p class="mono" style="margin-bottom: 2rem;">Pick the vibe that fits. Multi-select allowed.</p>
+
+            <div class="grid-selection" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Culture Collector</div>
+                    <div class="desc">Galleries, history, and the pulse of the city.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Lit & Latte Loyalist</div>
+                    <div class="desc">Find the quiet corners and the best roasts.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Splash Zone Super-fan</div>
+                    <div class="desc">Rooftop pools and waterfront vibes.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Brunch Circuit Regular</div>
+                    <div class="desc">Avocado toast and bottomless stories.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Coastal Cruiser</div>
+                    <div class="desc">Breezy drives and seaside aesthetics.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Urban Yogi</div>
+                    <div class="desc">Wellness, mats, and mindfulness.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Craft Cocktail Cartographer</div>
+                    <div class="desc">Speakeasies and experimental mixology.</div>
+                </div>
+                <div class="visual-tile" onclick="selectTile(this)">
+                    <div class="label">Dim Sum Diplomat</div>
+                    <div class="desc">Exploring the culinary secrets of the district.</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <button class="btn-curate" onclick="nextStep(4)">Refine My Journey</button>
+            </div>
+        </section>
+
+        <!-- STEP 6: REWARD SCREEN -->
+        <section id="step4" class="vellum-sheet step-hidden">
+            <div class="reward-grid">
+                <div class="dashboard-header">
+                    <p class="mono">Your Profile is Synced</p>
+                    <h1 style="font-size: 5rem;">We See You.</h1>
+                    <div class="countdown-large">12<span style="font-size: 2rem; vertical-align: top; margin-left: 10px;">Days</span></div>
+                    <p class="mono">Arrival: October 24, 2023 — Weather Forecast: 72°F & Clear</p>
+                </div>
+
+                <div class="editorial-block">
+                    <p class="mono" style="margin-bottom: 0.5rem;">Built for you</p>
+                    <h3>The Culture Map</h3>
+                    <p>Based on your <b>Culture Collector</b> persona, we've reserved a private viewing slot for the <i>Modernist Mural Exhibit</i> just three blocks from our lobby. It overlaps perfectly with your second afternoon.</p>
+                    <a href="#" class="mono" style="margin-top: 1rem; display: block; color: var(--ink); font-weight: bold;">View Details →</a>
+                </div>
+
+                <div class="editorial-block">
+                    <p class="mono" style="margin-bottom: 0.5rem;">During your stay</p>
+                    <h3>The Jazz Festival</h3>
+                    <p>Your dates align with the 12th annual City Soul Festival. We’ve curated a list of "secret" performances happening in the District, specifically for those who appreciate the Lit & Latte scene.</p>
+                    <a href="#" class="mono" style="margin-top: 1rem; display: block; color: var(--ink); font-weight: bold;">Get Festival Access →</a>
+                </div>
+
+                <div class="editorial-block">
+                    <p class="mono" style="margin-bottom: 0.5rem;">Neighborhood Dining</p>
+                    <h3>Craft & Canvas</h3>
+                    <p>A cocktail bar that doubles as an art studio. We thought you'd appreciate the tactile energy here. Mention your confirmation number for a signature arrival pour.</p>
+                </div>
+
+                <div style="grid-column: span 2; margin-top: 2rem; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 3rem;">
+                    <p style="font-style: italic; opacity: 0.6;">More personalized recommendations will arrive before you check in.</p>
+                    <p class="mono" style="margin-top: 2rem;">Connected via WhatsApp</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            // Update progress bar
+            const progress = (stepNumber / 4) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            // Hide all steps
+            const steps = document.querySelectorAll('.vellum-sheet');
+            steps.forEach(step => {
+                step.classList.remove('step-active');
+                step.classList.add('step-hidden');
+            });
+
+            // Show active step
+            const activeStep = document.getElementById('step' + stepNumber);
+            if (activeStep) {
+                activeStep.classList.remove('step-hidden');
+                activeStep.classList.add('step-active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectTile(element) {
+            element.classList.toggle('selected');
+            // Subtle feedback
+            if(element.classList.contains('selected')) {
+                element.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    element.style.transform = 'scale(1) translateY(-8px)';
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>

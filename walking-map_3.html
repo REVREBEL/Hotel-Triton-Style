@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Walking Radius Experience | 342 Grant Avenue</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --graphite-900: #0a0a0a;
+            --graphite-800: #141414;
+            --graphite-700: #1f1f1f;
+            --graphite-600: #2d2d2d;
+            --accent-gold: #c5a358;
+            --text-main: #e5e5e5;
+            --text-dim: #888888;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', sans-serif;
+            --chisel: 1px solid rgba(255,255,255,0.12);
+            --shadow-hard: 10px 10px 0px rgba(0,0,0,0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--graphite-900);
+            color: var(--text-main);
+            font-family: var(--sans);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Material Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/baseFilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        header {
+            padding: 40px 60px 20px 60px;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--graphite-900) 40%, transparent);
+        }
+
+        h1 {
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .subline {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Filter System */
+        .filter-container {
+            padding: 20px 60px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chip-group {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .chip-group::-webkit-scrollbar { display: none; }
+
+        .chip {
+            padding: 8px 20px;
+            background: var(--graphite-800);
+            border: var(--chisel);
+            color: var(--text-dim);
+            font-family: var(--mono);
+            font-size: 11px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            text-transform: uppercase;
+        }
+
+        .chip:hover {
+            border-color: var(--text-dim);
+            color: var(--text-main);
+        }
+
+        .chip.active {
+            background: var(--text-main);
+            color: var(--graphite-900);
+            font-weight: 700;
+            border-color: var(--text-main);
+        }
+
+        .chip.energy { border-radius: 2px; border-left: 4px solid var(--accent-gold); }
+
+        /* Map Stage */
+        #map-wrapper {
+            flex-grow: 1;
+            margin: 0 60px 40px 60px;
+            position: relative;
+            border: var(--chisel);
+            background: var(--graphite-800);
+            box-shadow: var(--shadow-hard);
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #111 !important;
+        }
+
+        /* Chiseled Map Styling Overrides */
+        .leaflet-container { background: #0a0a0a !important; }
+        .leaflet-vignette {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.8);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Custom ISO Rings */
+        .iso-ring {
+            fill: rgba(255,255,255,0.03);
+            stroke: rgba(255,255,255,0.1);
+            stroke-width: 1;
+            pointer-events: visibleStroke;
+            transition: all 0.6s ease;
+            cursor: pointer;
+        }
+
+        .iso-ring:hover {
+            fill: rgba(255,255,255,0.06);
+            stroke: var(--accent-gold);
+        }
+
+        .iso-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            fill: var(--text-dim);
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+
+        /* Custom Marker */
+        .custom-pin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pin-head {
+            width: 12px;
+            height: 12px;
+            background: var(--text-main);
+            border: 2px solid var(--graphite-900);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .pin-hotel {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            outline: 4px solid rgba(197, 163, 88, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { outline-width: 0px; }
+            50% { outline-width: 10px; }
+            100% { outline-width: 0px; }
+        }
+
+        /* Detail Card */
+        #detail-card {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            width: 320px;
+            background: var(--graphite-800);
+            border: var(--chisel);
+            padding: 30px;
+            z-index: 1001;
+            display: none;
+            box-shadow: 20px 20px 40px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        #detail-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 11px;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            border-bottom: var(--chisel);
+            padding-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #bbb;
+            margin-bottom: 25px;
+        }
+
+        .cta-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 12px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: var(--text-main);
+            color: var(--graphite-900);
+        }
+
+        .close-card {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: 18px;
+            color: var(--text-dim);
+        }
+
+        /* Mini Legend */
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1001;
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--text-dim);
+            display: flex;
+            gap: 20px;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-dot { width: 6px; height: 6px; background: var(--accent-gold); }
+
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            h1 { font-size: 32px; }
+            #map-wrapper { margin: 0; border: none; }
+            .filter-container { padding: 10px 20px; }
+            #detail-card {
+                top: auto;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                border-right: none;
+                border-left: none;
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="subline">342 Grant Avenue, San Francisco</div>
+        <h1>Explore San Francisco<br>On Foot</h1>
+        <p class="subline" style="margin-top: 10px; color: var(--accent-gold);">Everything you need is within walking distance.</p>
+    </header>
+
+    <div class="filter-container">
+        <div class="chip-group">
+            <div class="chip energy active" data-range="all">All Explorations</div>
+            <div class="chip energy" data-range="10">Quick Stroll (10m)</div>
+            <div class="chip energy" data-range="15">Neighborhood (15m)</div>
+            <div class="chip energy" data-range="20">An Afternoon (20m)</div>
+        </div>
+        <div class="chip-group">
+            <div class="chip active">All Interests</div>
+            <div class="chip">Hungry & Curious</div>
+            <div class="chip">Art & Culture</div>
+            <div class="chip">Iconic SF</div>
+            <div class="chip">Hidden Gems</div>
+            <div class="chip">Coffee First</div>
+            <div class="chip">Waterfront Views</div>
+        </div>
+    </div>
+
+    <div id="map-wrapper">
+        <div id="map"></div>
+        <div class="leaflet-vignette"></div>
+        
+        <div id="detail-card">
+            <span class="close-card" onclick="closeDetail()">×</span>
+            <div class="meta-row">
+                <span id="card-category">CULTURE</span>
+                <span id="card-time">12 MIN WALK</span>
+            </div>
+            <h3 id="card-title">Dragon's Gate</h3>
+            <p class="description" id="card-desc">The iconic entrance to the oldest Chinatown in North America. A masterwork of chiseled stone and ornamental jade.</p>
+            <div class="meta-row" style="border: none; margin-bottom: 10px;">
+                <span>ELEVATION: +12 FT</span>
+                <span>VIBE: HISTORIC</span>
+            </div>
+            <a href="#" class="cta-btn">Get Walking Directions</a>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background: var(--accent-gold);"></div> Hotel Location</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--text-main);"></div> Curated Point</div>
+            <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.2);"></div> Walking Isochrone</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize Map
+        const center = [37.7909, -122.4056]; // 342 Grant Ave
+        const map = L.map('map', {
+            center: center,
+            zoom: 16,
+            zoomControl: false,
+            attributionControl: false
+        });
+
+        // Chiseled Graphite Map Style (Carto Dark)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        // Curated Data
+        const pois = [
+            {
+                name: "Dragon's Gate",
+                latlng: [37.7907, -122.4051],
+                time: "2 MIN",
+                cat: "CULTURE",
+                desc: "The symbolic threshold into Chinatown. Note the stone lions guarding the passage.",
+                range: 5
+            },
+            {
+                name: "Union Square",
+                latlng: [37.7879, -122.4075],
+                time: "6 MIN",
+                cat: "SHOPPING",
+                desc: "The city's vibrant heart. Perfectly manicured and surrounded by world-class retail.",
+                range: 10
+            },
+            {
+                name: "Golden Gate Fortune Cookie",
+                latlng: [37.7950, -122.4073],
+                time: "11 MIN",
+                cat: "HIDDEN GEM",
+                desc: "Follow the scent of toasted vanilla down Ross Alley to this legendary 1958 factory.",
+                range: 15
+            },
+            {
+                name: "Transamerica Redwood Park",
+                latlng: [37.7952, -122.4021],
+                time: "14 MIN",
+                cat: "NATURE",
+                desc: "A silent grove of majestic redwoods tucked between skyscrapers. SF's best kept secret.",
+                range: 15
+            },
+            {
+                name: "Ferry Building",
+                latlng: [37.7955, -122.3937],
+                time: "19 MIN",
+                cat: "GASTRONOMY",
+                desc: "A temple to local transit and food. Walk the Embarcadero for the ultimate salt-air finish.",
+                range: 20
+            }
+        ];
+
+        // Draw Rings (Organic Isochrones - Approximate)
+        function drawRings() {
+            const ringPoints = [
+                { r: 0.002, time: "5m" },
+                { r: 0.0045, time: "10m" },
+                { r: 0.007, time: "15m" },
+                { r: 0.010, time: "20m" }
+            ];
+
+            ringPoints.reverse().forEach((ring, i) => {
+                // We create a slightly irregular circle by adding jitter to the radius
+                const points = [];
+                for(let a=0; a<360; a+=10) {
+                    const rad = a * Math.PI / 180;
+                    const jitter = 1 + (Math.sin(a * 0.05) * 0.1); // SF hills deformation
+                    points.push([
+                        center[0] + (ring.r * jitter) * Math.cos(rad),
+                        center[1] + (ring.r * jitter * 1.3) * Math.sin(rad) // East-west is flatter/faster
+                    ]);
+                }
+                
+                const polygon = L.polygon(points, {
+                    className: 'iso-ring',
+                    fillOpacity: 0.03,
+                    weight: 1,
+                    color: 'rgba(255,255,255,0.1)'
+                }).addTo(map);
+
+                polygon.on('mouseover', function() {
+                    this.setStyle({ color: '#c5a358', fillOpacity: 0.08 });
+                });
+                polygon.on('mouseout', function() {
+                    this.setStyle({ color: 'rgba(255,255,255,0.1)', fillOpacity: 0.03 });
+                });
+            });
+        }
+
+        // Custom Hotel Marker
+        const hotelIcon = L.divIcon({
+            className: 'custom-pin',
+            html: '<div class="pin-head pin-hotel"></div>',
+            iconSize: [20, 20]
+        });
+        L.marker(center, { icon: hotelIcon }).addTo(map);
+
+        // Add POIs
+        const poiMarkers = [];
+        pois.forEach(poi => {
+            const icon = L.divIcon({
+                className: 'custom-pin',
+                html: '<div class="pin-head"></div>',
+                iconSize: [12, 12]
+            });
+            
+            const marker = L.marker(poi.latlng, { icon: icon }).addTo(map);
+            marker.on('click', () => showDetail(poi));
+            poiMarkers.push({ marker, data: poi });
+        });
+
+        // Interaction Logic
+        function showDetail(poi) {
+            const card = document.getElementById('detail-card');
+            document.getElementById('card-title').innerText = poi.name;
+            document.getElementById('card-category').innerText = poi.cat;
+            document.getElementById('card-time').innerText = `${poi.time} WALK`;
+            document.getElementById('card-desc').innerText = poi.desc;
+            
+            card.style.display = 'block';
+            card.style.animation = 'fadeInRight 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+            
+            map.flyTo(poi.latlng, 17, { duration: 1.5 });
+        }
+
+        function closeDetail() {
+            document.getElementById('detail-card').style.display = 'none';
+            map.flyTo(center, 16);
+        }
+
+        // Filter Logic
+        document.querySelectorAll('.chip.energy').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.chip.energy').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                const range = this.dataset.range;
+                poiMarkers.forEach(item => {
+                    if (range === 'all' || item.data.range <= parseInt(range)) {
+                        item.marker.getElement().style.opacity = '1';
+                    } else {
+                        item.marker.getElement().style.opacity = '0.2';
+                    }
+                });
+            });
+        });
+
+        // Initial Load Animation
+        window.onload = () => {
+            drawRings();
+            document.querySelectorAll('.pin-head').forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0) rotate(45deg)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'scale(1) rotate(45deg)';
+                }, 400 + (i * 100));
+            });
+        };
+    </script>
+
+    <style>
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</body>
+</html>
